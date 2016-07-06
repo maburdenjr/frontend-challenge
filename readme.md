@@ -6,7 +6,7 @@ Create an application to track the score of a bowling game. As part of the inter
 
 __Directions__
 
-Fork this repository and create a branch for your answer submission. You may provide a link to the branch or create a pull request to this repo with your answer.
+Fork this repository and create a branch for your answer submission. You may provide a link to the branch or create a pull request to this repo with your answer. Please use the provided functions to calculate the score.
 
 __Evaluation Criteria__
 
