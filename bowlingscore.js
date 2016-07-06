@@ -8,13 +8,13 @@
     //  ]
     //})
     
-    function totalScore(game) {
+    window.totalScore = function(game) {
      return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].reduce(function (acc, i) {
         return acc + (frameScore(game, i) || 0)
       }, 0)
     }
   
-    function frameScore(game, frameNumber) {
+    window.frameScore = function(game, frameNumber) {
     var frames = game.frames,
         frame = frames[frameNumber],
         i = frameNumber,
