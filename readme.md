@@ -2,11 +2,17 @@
 
 __Objective__
 
-Create an application to track the score of a bowling game.
+Create an application to track the score of a bowling game. As part of the intervriw process, we will discuss the code provided in this challenge. Do as much as possible in the time you have available to you. 
 
 __Directions__
 
 Fork this repository and create a branch for your answer submission. You may provide a link to the branch or create a pull request to this repo with your answer.
+
+__Evaluation Criteria__
+
+- Code Quality
+- Sematic Markup
+- Understanding of CSS and JavaScript
 
 __Example Scoresheet__
 ![Scoresheet example](scoresheet.png)
@@ -23,10 +29,12 @@ __Example Scoresheet__
   - X = strike
   - / = spare
 
+- Please provide instructions in this readme for anything required to run your final application. It should be clear to us how to run and view your application in a reasonable number of steps.
+
 ## Restrictions
 
   - __CSS:__ <br />Only normalize.css allowed, no additional css frameworks are permitted. Normalize.css is included in the provided template.
-  - __JavaScript:__ <br />The included bowlingscore.js file, VanillaJS, jQuery, or Angular Core only(or similar framework - react, backbone, etc) . No extra widget libraries.
+  - __JavaScript:__ <br />The included bowlingscore.js file, VanillaJS, jQuery, or Angular Core only(or similar framework - react, backbone, etc) . No extra widget libraries. Please provide instructions to any build system or tooling that you include.
   - __HTML:__ <br />Semantic, well-formed, and accessible HTML preferred
 
 ## Bowling Scoring Rules
