@@ -13,6 +13,7 @@ __Evaluation Criteria__
 - Code Quality
 - Sematic Markup
 - Understanding of CSS and JavaScript
+- Being able to interact with this repository
 
 __Example Scoresheet__
 ![Scoresheet example](scoresheet.png)
