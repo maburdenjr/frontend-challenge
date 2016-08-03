@@ -10,7 +10,7 @@ class App extends Component {
     componentDidMount() {
         const {changePlayerName, recordScore}  = this.props;
         changePlayerName('player2', 'Michael Burden');
-        recordScore('player2', '1', 10);
+        recordScore('player2', 0, 1, 10);
     }
 
     render() {
@@ -30,8 +30,8 @@ function mapDispatchToProps(dispatch) {
         changePlayerName: function(player, name) {
           dispatch(scoreManager.changePlayerName(player, name));
       },
-      recordScore: function(player, roll, score) {
-          dispatch(scoreManager.recordScore(player, roll, score))
+      recordScore: function(player, frame, roll, score) {
+          dispatch(scoreManager.recordScore(player, frame, roll, score))
       }
     };
 }

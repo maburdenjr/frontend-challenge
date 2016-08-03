@@ -24157,6 +24157,11 @@
 	    var scoreBoard = {};
 	    for (var x = 1; x < 5; x++) {
 	        scoreBoard['player' + x] = { name: 'Player ' + x, frames: [] };
+	        for (var f = 0; f < 10; f++) {
+	            var singleFrame = void 0;
+	            f < 9 ? singleFrame = { roll1: null, roll2: null } : singleFrame = { roll1: null, roll2: null, roll3: null };
+	            scoreBoard['player' + x].frames.push(singleFrame);
+	        }
 	    }
 	    return scoreBoard;
 	}
@@ -24172,6 +24177,9 @@
 	            var updateName = Object.assign({}, state);
 	            updateName[action.player].name = action.name;
 	            return updateName;
+	        case scoreManager.RECORD_SCORE:
+	            var updateScore = Object.assign({}, state);
+	            updateScore[action.player].frames[action.frame]['roll' + action.roll] = action.score;
 	        default:
 	            return state;
 	    }
@@ -24195,7 +24203,7 @@
 	exports.changePlayerName = changePlayerName;
 	exports.recordScore = recordScore;
 	var CHANGE_PLAYER_NAME = exports.CHANGE_PLAYER_NAME = 'CHANGE_PLAYER_NAME';
-	var RECORD_SCORE = exports.RECORD_SCORE = 'ADD_SCORE';
+	var RECORD_SCORE = exports.RECORD_SCORE = 'RECORD_SCORE';
 	
 	function changePlayerName(player, name) {
 	    return {
@@ -24205,10 +24213,11 @@
 	    };
 	}
 	
-	function recordScore(player, roll, score) {
+	function recordScore(player, frame, roll, score) {
 	    return {
 	        type: 'RECORD_SCORE',
 	        player: player,
+	        frame: frame,
 	        roll: roll,
 	        score: score
 	    };
@@ -24266,7 +24275,7 @@
 	            var recordScore = _props.recordScore;
 	
 	            changePlayerName('player2', 'Michael Burden');
-	            recordScore('player2', '1', 10);
+	            recordScore('player2', 0, 1, 10);
 	        }
 	    }, {
 	        key: 'render',
@@ -24292,8 +24301,8 @@
 	        changePlayerName: function changePlayerName(player, name) {
 	            dispatch(scoreManager.changePlayerName(player, name));
 	        },
-	        recordScore: function recordScore(player, roll, score) {
-	            dispatch(scoreManager.recordScore(player, roll, score));
+	        recordScore: function recordScore(player, frame, roll, score) {
+	            dispatch(scoreManager.recordScore(player, frame, roll, score));
 	        }
 	    };
 	}
