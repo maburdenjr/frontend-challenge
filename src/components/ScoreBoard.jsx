@@ -24,7 +24,7 @@ export default class ScoreBoard extends Component {
                     <div className = "board-frame">7</div>
                     <div className = "board-frame">8</div>
                     <div className = "board-frame">9</div>
-                    <div className = "board-frame">10</div>
+                    <div className = "board-frame final-frame">10</div>
                     <div className = "board-score">Total</div>
                 </section>
                 {

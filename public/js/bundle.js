@@ -24482,7 +24482,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
-	                        { className: 'board-frame' },
+	                        { className: 'board-frame final-frame' },
 	                        '10'
 	                    ),
 	                    _react2.default.createElement(
@@ -24551,24 +24551,28 @@
 	                    this.props.playerData.name
 	                ),
 	                this.props.playerData.frames.map(function (result, key) {
-	                    if (key < 10) {
+	                    if (key < 9) {
 	                        return _react2.default.createElement(
 	                            "div",
-	                            { className: "board-frame" },
+	                            { className: "board-frame", id: key },
 	                            _react2.default.createElement(
 	                                "div",
-	                                { "class": "frame-container" },
-	                                _react2.default.createElement("div", { "class": "frame-roll" }),
-	                                _react2.default.createElement("div", { "class": "frame-roll" })
+	                                { className: "frame-container" },
+	                                _react2.default.createElement("div", { className: "frame-roll" }),
+	                                _react2.default.createElement("div", { className: "frame-roll" })
 	                            )
 	                        );
 	                    } else {
-	                        _react2.default.createElement(
+	                        return _react2.default.createElement(
 	                            "div",
-	                            { className: "board-frame" },
-	                            _react2.default.createElement("div", { "class": "frame-roll" }),
-	                            _react2.default.createElement("div", { "class": "frame-roll" }),
-	                            _react2.default.createElement("div", { "class": "frame-roll" })
+	                            { className: "board-frame final-frame" },
+	                            _react2.default.createElement(
+	                                "div",
+	                                { className: "frame-container" },
+	                                _react2.default.createElement("div", { className: "frame-roll" }),
+	                                _react2.default.createElement("div", { className: "frame-roll" }),
+	                                _react2.default.createElement("div", { className: "frame-roll" })
+	                            )
 	                        );
 	                    }
 	                }),

@@ -12,26 +12,32 @@ export default class PlayerRow extends Component {
                 <div className = "board-player">{this.props.playerData.name}</div>
                 {
                     this.props.playerData.frames.map(function (result, key) {
-                        if (key < 10 ) {
+                        if (key < 9 ) {
                             return (
-                            <div className="board-frame">
-                                <div class="frame-container">
-                                    <div class="frame-roll">
+                            <div className="board-frame" id={key}>
+                                <div className="frame-container">
+                                    <div className="frame-roll">
+
                                     </div>
-                                    <div class="frame-roll">
+                                    <div className="frame-roll">
+
                                     </div>
                                 </div>
                             </div>
                             )
                         } else {
-                            <div className="board-frame">
-                                <div class="frame-roll">
+                            return (
+                                <div className="board-frame final-frame">
+                                    <div className="frame-container">
+                                        <div className="frame-roll">
+                                        </div>
+                                        <div className="frame-roll">
+                                        </div>
+                                        <div className="frame-roll">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="frame-roll">
-                                </div>
-                                <div class="frame-roll">
-                                </div>
-                            </div>
+                            )
                         }
                     })
                 }

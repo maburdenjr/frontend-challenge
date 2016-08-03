@@ -30,6 +30,7 @@ header {
   overflow: hidden;
   background-color: #CCC9C9; }
   .board-header div {
+    font-weight: bold;
     padding: 10px;
     float: left; }
     .board-header div.board-frame {
@@ -40,12 +41,27 @@ header {
   width: 100%;
   overflow: hidden;
   background-color: #F2F2F2; }
-  .player-row div {
+  .player-row div.board-frame, .player-row div.board-player, .player-row div.board-score {
+    border-top: 1px solid #999;
     padding: 10px;
     float: left;
-    height: 75px; }
-    .player-row div.board-frame, .player-row div.board-player, .player-row div.board-score {
-      border-top: 1px solid #999; }
+    height: 85px; }
+  .player-row .frame-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden; }
+    .player-row .frame-container .frame-roll {
+      position: relative;
+      float: right;
+      border-left: 1px solid #999;
+      border-bottom: 1px solid #999;
+      height: 25px;
+      width: 25px;
+      padding: 5px; }
+  .player-row .board-player {
+    cursor: pointer; }
+    .player-row .board-player:hover {
+      background-color: #DDD; }
 
 .board-player {
   width: 198px; }
@@ -57,6 +73,9 @@ header {
   background-color: #FFF; }
 
 .board-score {
-  width: 100px;
+  width: 80px;
   text-align: center;
   border-left: 1px solid #999; }
+
+.final-frame {
+  width: 100px; }
