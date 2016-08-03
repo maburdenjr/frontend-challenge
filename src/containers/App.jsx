@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as scoreManager from '../actions/scoring'
+import Header from '../components/Header.jsx';
+import ScoreBoard from '../components/ScoreBoard.jsx';
+
 
 class App extends Component {
     constructor(props) {
@@ -16,7 +19,10 @@ class App extends Component {
     render() {
         console.log(this.props);
         return(
-            <div>Successful</div>
+            <div id="scoreWrapper">
+                <Header />
+                <ScoreBoard {...this.props} />
+            </div>
         )
     }
 }

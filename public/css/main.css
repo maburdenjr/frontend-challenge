@@ -1,10 +1,8 @@
 * {
-  box-sizing: border-box;
-}
+  box-sizing: border-box; }
 
 html, body {
-  background-color: #F2F2F2;
-}
+  background-color: #F2F2F2; }
 
 header {
   position: relative;
@@ -12,12 +10,10 @@ header {
   background-color: #000;
   color: #CCC;
   font-size: 20px;
-  padding: 10px;
-  span {
+  padding: 10px; }
+  header span {
     text-transform: uppercase;
-    color: #FFF;
-  }
-}
+    color: #FFF; }
 
 #scoreBoard {
   position: relative;
@@ -26,49 +22,41 @@ header {
   margin-right: auto;
   background-color: #F8F8F8;
   margin-top: 20px;
-  border: 1px solid #999;
-}
+  border: 1px solid #999; }
 
 .board-header {
   position: relative;
   width: 100%;
   overflow: hidden;
-  background-color: #CCC9C9;
-  div {
+  background-color: #CCC9C9; }
+  .board-header div {
     padding: 10px;
-    float: left;
-    &.board-frame {
-      background-color: #CCC9C9;
-    }
-  }
-}
+    float: left; }
+    .board-header div.board-frame {
+      background-color: #CCC9C9; }
 
 .player-row {
   position: relative;
   width: 100%;
   overflow: hidden;
-  background-color: #F2F2F2;
-  div {
+  background-color: #F2F2F2; }
+  .player-row div {
     padding: 10px;
     float: left;
-    height: 75px;
-    &.board-frame, &.board-player, &.board-score {
-      border-top: 1px solid #999;
-    }
-  }
-}
+    height: 75px; }
+    .player-row div.board-frame, .player-row div.board-player, .player-row div.board-score {
+      border-top: 1px solid #999; }
 
 .board-player {
-  width: 198px;
-}
+  width: 198px; }
+
 .board-frame {
   width: 80px;
   text-align: center;
   border-left: 1px solid #999;
-  background-color: #FFF;
-}
+  background-color: #FFF; }
+
 .board-score {
   width: 100px;
   text-align: center;
-  border-left: 1px solid #999;
-}
+  border-left: 1px solid #999; }

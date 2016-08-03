@@ -24156,7 +24156,7 @@
 	function initScoreBoard() {
 	    var scoreBoard = {};
 	    for (var x = 1; x < 5; x++) {
-	        scoreBoard['player' + x] = { name: 'Player ' + x, frames: [] };
+	        scoreBoard['player' + x] = { name: 'Player ' + x, frames: [], totalScore: null };
 	        for (var f = 0; f < 10; f++) {
 	            var singleFrame = void 0;
 	            f < 9 ? singleFrame = { roll1: null, roll2: null } : singleFrame = { roll1: null, roll2: null, roll3: null };
@@ -24248,6 +24248,14 @@
 	
 	var scoreManager = _interopRequireWildcard(_scoring);
 	
+	var _Header = __webpack_require__(/*! ../components/Header.jsx */ 210);
+	
+	var _Header2 = _interopRequireDefault(_Header);
+	
+	var _ScoreBoard = __webpack_require__(/*! ../components/ScoreBoard.jsx */ 211);
+	
+	var _ScoreBoard2 = _interopRequireDefault(_ScoreBoard);
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -24283,8 +24291,9 @@
 	            console.log(this.props);
 	            return _react2.default.createElement(
 	                'div',
-	                null,
-	                'Successful'
+	                { id: 'scoreWrapper' },
+	                _react2.default.createElement(_Header2.default, null),
+	                _react2.default.createElement(_ScoreBoard2.default, this.props)
 	            );
 	        }
 	    }]);
@@ -24308,6 +24317,274 @@
 	}
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(App);
+
+/***/ },
+/* 210 */
+/*!***********************************!*\
+  !*** ./src/components/Header.jsx ***!
+  \***********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Header = function (_Component) {
+	    _inherits(Header, _Component);
+	
+	    function Header(props) {
+	        _classCallCheck(this, Header);
+	
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this, props));
+	    }
+	
+	    _createClass(Header, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "header",
+	                null,
+	                _react2.default.createElement(
+	                    "a",
+	                    { className: "brand-link" },
+	                    "Medi",
+	                    _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        "Bowling"
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return Header;
+	}(_react.Component);
+	
+	exports.default = Header;
+
+/***/ },
+/* 211 */
+/*!***************************************!*\
+  !*** ./src/components/ScoreBoard.jsx ***!
+  \***************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _PlayerRow = __webpack_require__(/*! ./PlayerRow.jsx */ 212);
+	
+	var _PlayerRow2 = _interopRequireDefault(_PlayerRow);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var ScoreBoard = function (_Component) {
+	    _inherits(ScoreBoard, _Component);
+	
+	    function ScoreBoard(props) {
+	        _classCallCheck(this, ScoreBoard);
+	
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(ScoreBoard).call(this, props));
+	    }
+	
+	    _createClass(ScoreBoard, [{
+	        key: 'render',
+	        value: function render() {
+	            console.log(this.props);
+	            var scoreBoard = this.props.scoreBoard;
+	            return _react2.default.createElement(
+	                'div',
+	                { id: 'scoreBoard' },
+	                _react2.default.createElement(
+	                    'section',
+	                    { className: 'board-header' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'board-player' },
+	                        'Player Name'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'board-frame' },
+	                        '1'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'board-frame' },
+	                        '2'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'board-frame' },
+	                        '3'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'board-frame' },
+	                        '4'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'board-frame' },
+	                        '5'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'board-frame' },
+	                        '6'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'board-frame' },
+	                        '7'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'board-frame' },
+	                        '8'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'board-frame' },
+	                        '9'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'board-frame' },
+	                        '10'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'board-score' },
+	                        'Total'
+	                    )
+	                ),
+	                Object.keys(scoreBoard).map(function (key) {
+	                    return _react2.default.createElement(_PlayerRow2.default, { playerData: scoreBoard[key] });
+	                })
+	            );
+	        }
+	    }]);
+	
+	    return ScoreBoard;
+	}(_react.Component);
+	
+	exports.default = ScoreBoard;
+
+/***/ },
+/* 212 */
+/*!**************************************!*\
+  !*** ./src/components/PlayerRow.jsx ***!
+  \**************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var PlayerRow = function (_Component) {
+	    _inherits(PlayerRow, _Component);
+	
+	    function PlayerRow(props) {
+	        _classCallCheck(this, PlayerRow);
+	
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(PlayerRow).call(this, props));
+	    }
+	
+	    _createClass(PlayerRow, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "section",
+	                { className: "player-row" },
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "board-player" },
+	                    this.props.playerData.name
+	                ),
+	                this.props.playerData.frames.map(function (result, key) {
+	                    if (key < 10) {
+	                        return _react2.default.createElement(
+	                            "div",
+	                            { className: "board-frame" },
+	                            _react2.default.createElement(
+	                                "div",
+	                                { "class": "frame-container" },
+	                                _react2.default.createElement("div", { "class": "frame-roll" }),
+	                                _react2.default.createElement("div", { "class": "frame-roll" })
+	                            )
+	                        );
+	                    } else {
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "board-frame" },
+	                            _react2.default.createElement("div", { "class": "frame-roll" }),
+	                            _react2.default.createElement("div", { "class": "frame-roll" }),
+	                            _react2.default.createElement("div", { "class": "frame-roll" })
+	                        );
+	                    }
+	                }),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "board-score" },
+	                    this.props.playerData.totalScore
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return PlayerRow;
+	}(_react.Component);
+	
+	exports.default = PlayerRow;
 
 /***/ }
 /******/ ]);

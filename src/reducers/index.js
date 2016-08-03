@@ -5,7 +5,7 @@ import * as scoreManager from '../actions/scoring'
 function initScoreBoard() {
     let scoreBoard = {};
     for (let x=1; x<5; x++) {
-        scoreBoard['player'+x] = {name: 'Player '+x, frames: []};
+        scoreBoard['player'+x] = {name: 'Player '+x, frames: [], totalScore: null};
         for(var f=0; f<10; f++) {
             let singleFrame;
             (f<9 ? singleFrame = {roll1: null, roll2: null} : singleFrame = {roll1: null, roll2: null, roll3: null});
