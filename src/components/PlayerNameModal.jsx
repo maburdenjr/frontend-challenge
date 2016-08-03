@@ -7,9 +7,6 @@ export default class PlayerNameModal extends Component {
         this.submitNameChange = this.submitNameChange.bind(this);
     }
 
-    componentDidMount() {
-    }
-
     submitNameChange() {
         let playerName = document.getElementById('playerName').value;
         let playerKey = document.getElementById('playerKey').value;

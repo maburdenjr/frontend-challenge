@@ -24287,16 +24287,6 @@
 	    }
 	
 	    _createClass(App, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var _props = this.props;
-	            var changePlayerName = _props.changePlayerName;
-	            var recordScore = _props.recordScore;
-	
-	            changePlayerName('player2', 'Michael Burden');
-	            recordScore('player2', 0, 1, 10);
-	        }
-	    }, {
 	        key: 'userInterfaceTools',
 	        value: function userInterfaceTools() {
 	            return {
@@ -24333,7 +24323,6 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            console.log(this.props);
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'appWrapper' },
@@ -24341,7 +24330,30 @@
 	                    'div',
 	                    { id: 'scoreWrapper' },
 	                    _react2.default.createElement(_Header2.default, null),
-	                    _react2.default.createElement(_ScoreBoard2.default, _extends({}, this.props, { uiTools: this.userInterfaceTools() }))
+	                    _react2.default.createElement(_ScoreBoard2.default, _extends({}, this.props, { uiTools: this.userInterfaceTools() })),
+	                    _react2.default.createElement(
+	                        'section',
+	                        { className: 'instructions' },
+	                        _react2.default.createElement(
+	                            'h2',
+	                            null,
+	                            'Instructions'
+	                        ),
+	                        _react2.default.createElement(
+	                            'ul',
+	                            null,
+	                            _react2.default.createElement(
+	                                'li',
+	                                null,
+	                                'Edit a player\'s name by clicking on that cell'
+	                            ),
+	                            _react2.default.createElement(
+	                                'li',
+	                                null,
+	                                'Click on a frame to add a score for that frame'
+	                            )
+	                        )
+	                    )
 	                ),
 	                _react2.default.createElement('div', { id: 'modalOverlay', onClick: this.userInterfaceTools().closeModals }),
 	                _react2.default.createElement(_PlayerNameModal2.default, _extends({}, this.props, { uiTools: this.userInterfaceTools() })),
@@ -24620,6 +24632,7 @@
 	        value: function render() {
 	            var playerName = this.props.playerData.name;
 	            var row = this;
+	            var totalScore = window.totalScore(row.props.playerData);
 	            return _react2.default.createElement(
 	                'section',
 	                { className: 'player-row' },
@@ -24659,7 +24672,7 @@
 	                    } else {
 	                        return _react2.default.createElement(
 	                            'div',
-	                            { className: 'board-frame final-frame' },
+	                            { className: 'board-frame final-frame', key: key },
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'frame-container' },
@@ -24685,7 +24698,7 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'board-score' },
-	                    this.props.playerData.totalScore
+	                    totalScore
 	                )
 	            );
 	        }
@@ -24736,9 +24749,6 @@
 	    }
 	
 	    _createClass(PlayerNameModal, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {}
-	    }, {
 	        key: 'submitNameChange',
 	        value: function submitNameChange() {
 	            var playerName = document.getElementById('playerName').value;

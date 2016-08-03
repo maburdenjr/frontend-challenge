@@ -12,12 +12,6 @@ class App extends Component {
         super(props);
     }
 
-    componentDidMount() {
-        const {changePlayerName, recordScore}  = this.props;
-        changePlayerName('player2', 'Michael Burden');
-        recordScore('player2', 0, 1, 10);
-    }
-
     userInterfaceTools() {
         return {
             fadeIn: function(elementId) {
@@ -53,12 +47,18 @@ class App extends Component {
 
 
     render() {
-        console.log(this.props);
         return(
             <div className="appWrapper">
                 <div id="scoreWrapper">
                     <Header />
                     <ScoreBoard {...this.props} uiTools={this.userInterfaceTools()} />
+                    <section className="instructions">
+                        <h2>Instructions</h2>
+                        <ul>
+                            <li>Edit a player's name by clicking on that cell</li>
+                            <li>Click on a frame to add a score for that frame</li>
+                        </ul>
+                    </section>
                 </div>
                 <div id="modalOverlay" onClick={this.userInterfaceTools().closeModals}></div>
                 <PlayerNameModal {...this.props} uiTools={this.userInterfaceTools()} />

@@ -26,6 +26,7 @@ export default class PlayerRow extends Component {
     render() {
         let playerName = this.props.playerData.name;
         let row = this;
+        let totalScore =  window.totalScore(row.props.playerData);
         return (
             <section className = "player-row">
                 <div className = "board-player" onClick={this.showNameChangeModal.bind(this, this.props.player, playerName)}>{playerName}</div>
@@ -55,7 +56,7 @@ export default class PlayerRow extends Component {
                             )
                         } else {
                             return (
-                                <div className="board-frame final-frame">
+                                <div className="board-frame final-frame" key={key}>
                                     <div className="frame-container">
                                         <div className="frame-roll" onClick={row.showScoreModal.bind(row, row.props.player, key, 3, roll3Display)}>
                                             {(roll3 == 0 ? '-' : roll3Display)}
@@ -72,7 +73,7 @@ export default class PlayerRow extends Component {
                         }
                     })
                 }
-                <div className = "board-score">{this.props.playerData.totalScore}</div>
+                <div className = "board-score">{totalScore}</div>
             </section>
         )
     }

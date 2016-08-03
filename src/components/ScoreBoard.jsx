@@ -35,6 +35,7 @@ export default class ScoreBoard extends Component {
                     })
                 }
             </div>
+
         )
     }
 }
