@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as scoreManager from '../actions/scoring'
 import Header from '../components/Header.jsx';
 import ScoreBoard from '../components/ScoreBoard.jsx';
+import PlayerNameModal from '../components/PlayerNameModal.jsx';
 
 
 class App extends Component {
@@ -19,9 +20,14 @@ class App extends Component {
     render() {
         console.log(this.props);
         return(
-            <div id="scoreWrapper">
-                <Header />
-                <ScoreBoard {...this.props} />
+            <div class="appWrapper">
+                <div id="scoreWrapper">
+                    <Header />
+                    <ScoreBoard {...this.props} />
+                </div>
+                <div id="modalOverlay">
+                    <PlayerNameModal {...this.props} />
+                </div>
             </div>
         )
     }

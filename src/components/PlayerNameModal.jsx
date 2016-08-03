@@ -8,9 +8,14 @@ export default class PlayerNameModal extends Component {
 
     render() {
         return (
-            <header>
-                <a className="brand-link">Medi<span>Bowling</span></a>
-            </header>
+            <div id="playerName" className="modal">
+                <h1>Change Player Name</h1>
+                 <input id="playerName" type="text" />
+                <div className="modal-actions">
+                <a className="btn">Cancel</a> <a className="btn primary">Save</a>
+                </div>
+             </div>
+
         )
     }
 }
