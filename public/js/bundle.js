@@ -24876,6 +24876,11 @@
 	                    null,
 	                    'Add/Modify Score'
 	                ),
+	                _react2.default.createElement(
+	                    'p',
+	                    null,
+	                    'Please enter numeric values only.  For a strike, enter 10.  The UI will handle the validation and presentation of scores.'
+	                ),
 	                _react2.default.createElement('input', { id: 'playerScore', type: 'text' }),
 	                _react2.default.createElement('input', { id: 'playerKey', type: 'hidden' }),
 	                _react2.default.createElement('input', { id: 'playerFrame', type: 'hidden' }),

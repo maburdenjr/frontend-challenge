@@ -38,6 +38,7 @@ export default class EnterFrameScore extends Component {
         return (
             <div id="frameScoreModal" className="modal hideme">
                 <h1>Add/Modify Score</h1>
+                <p>Please enter numeric values only.  For a strike, enter 10.  The UI will handle the validation and presentation of scores.</p>
                 <input id="playerScore" type="text" />
                 <input id="playerKey" type="hidden" />
                 <input id="playerFrame" type="hidden" />
