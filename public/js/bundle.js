@@ -24236,6 +24236,8 @@
 	    value: true
 	});
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(/*! react */ 2);
@@ -24290,23 +24292,50 @@
 	            recordScore('player2', 0, 1, 10);
 	        }
 	    }, {
+	        key: 'userInterfaceTools',
+	        value: function userInterfaceTools() {
+	            return {
+	                fadeIn: function fadeIn(elementId) {
+	                    var element = document.getElementById(elementId);
+	                    var op = 0.1; // initial opacity
+	                    element.style.display = 'block';
+	                    var timer = setInterval(function () {
+	                        if (op >= 1) {
+	                            clearInterval(timer);
+	                        }
+	                        element.style.opacity = op;
+	                        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+	                        op += op * 0.1;
+	                    }, 10);
+	                },
+	                fadeOut: function fadeOut(elementId) {
+	                    // ToDo: Make this fade out instead of just disappearing
+	                    var element = document.getElementById(elementId);
+	                    element.style.display = 'none';
+	                    element.style.opacity = 0;
+	                    element.style.filter = 'alpha(opacity=0)';
+	                },
+	                closeModals: function closeModals() {
+	                    document.getElementById('modalOverlay').style.display = "none";
+	                    document.getElementById('playerNameModal').style.display = "none";
+	                }
+	            };
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            console.log(this.props);
 	            return _react2.default.createElement(
 	                'div',
-	                { 'class': 'appWrapper' },
+	                { className: 'appWrapper' },
 	                _react2.default.createElement(
 	                    'div',
 	                    { id: 'scoreWrapper' },
 	                    _react2.default.createElement(_Header2.default, null),
-	                    _react2.default.createElement(_ScoreBoard2.default, this.props)
+	                    _react2.default.createElement(_ScoreBoard2.default, _extends({}, this.props, { uiTools: this.userInterfaceTools() }))
 	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { id: 'modalOverlay' },
-	                    _react2.default.createElement(_PlayerNameModal2.default, this.props)
-	                )
+	                _react2.default.createElement('div', { id: 'modalOverlay', onClick: this.userInterfaceTools().closeModals }),
+	                _react2.default.createElement(_PlayerNameModal2.default, _extends({}, this.props, { uiTools: this.userInterfaceTools() }))
 	            );
 	        }
 	    }]);
@@ -24405,6 +24434,8 @@
 	    value: true
 	});
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(/*! react */ 2);
@@ -24435,8 +24466,8 @@
 	    _createClass(ScoreBoard, [{
 	        key: 'render',
 	        value: function render() {
-	            console.log(this.props);
 	            var scoreBoard = this.props.scoreBoard;
+	            var props = this.props;
 	            return _react2.default.createElement(
 	                'div',
 	                { id: 'scoreBoard' },
@@ -24505,7 +24536,7 @@
 	                    )
 	                ),
 	                Object.keys(scoreBoard).map(function (key) {
-	                    return _react2.default.createElement(_PlayerRow2.default, { playerData: scoreBoard[key] });
+	                    return _react2.default.createElement(_PlayerRow2.default, _extends({ playerData: scoreBoard[key], player: key }, props));
 	                })
 	            );
 	        }
@@ -24523,7 +24554,7 @@
   \**************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -24553,45 +24584,54 @@
 	    }
 	
 	    _createClass(PlayerRow, [{
-	        key: "render",
+	        key: 'showNameChangeModal',
+	        value: function showNameChangeModal(player, name) {
+	            this.props.uiTools.fadeIn('modalOverlay');
+	            this.props.uiTools.fadeIn('playerNameModal');
+	            document.getElementById('playerName').value = name;
+	            document.getElementById('playerKey').value = player;
+	        }
+	    }, {
+	        key: 'render',
 	        value: function render() {
+	            var playerName = this.props.playerData.name;
 	            return _react2.default.createElement(
-	                "section",
-	                { className: "player-row" },
+	                'section',
+	                { className: 'player-row' },
 	                _react2.default.createElement(
-	                    "div",
-	                    { className: "board-player" },
-	                    this.props.playerData.name
+	                    'div',
+	                    { className: 'board-player', onClick: this.showNameChangeModal.bind(this, this.props.player, playerName) },
+	                    playerName
 	                ),
 	                this.props.playerData.frames.map(function (result, key) {
 	                    if (key < 9) {
 	                        return _react2.default.createElement(
-	                            "div",
-	                            { className: "board-frame", id: key },
+	                            'div',
+	                            { className: 'board-frame', id: key },
 	                            _react2.default.createElement(
-	                                "div",
-	                                { className: "frame-container" },
-	                                _react2.default.createElement("div", { className: "frame-roll" }),
-	                                _react2.default.createElement("div", { className: "frame-roll" })
+	                                'div',
+	                                { className: 'frame-container' },
+	                                _react2.default.createElement('div', { className: 'frame-roll' }),
+	                                _react2.default.createElement('div', { className: 'frame-roll' })
 	                            )
 	                        );
 	                    } else {
 	                        return _react2.default.createElement(
-	                            "div",
-	                            { className: "board-frame final-frame" },
+	                            'div',
+	                            { className: 'board-frame final-frame' },
 	                            _react2.default.createElement(
-	                                "div",
-	                                { className: "frame-container" },
-	                                _react2.default.createElement("div", { className: "frame-roll" }),
-	                                _react2.default.createElement("div", { className: "frame-roll" }),
-	                                _react2.default.createElement("div", { className: "frame-roll" })
+	                                'div',
+	                                { className: 'frame-container' },
+	                                _react2.default.createElement('div', { className: 'frame-roll' }),
+	                                _react2.default.createElement('div', { className: 'frame-roll' }),
+	                                _react2.default.createElement('div', { className: 'frame-roll' })
 	                            )
 	                        );
 	                    }
 	                }),
 	                _react2.default.createElement(
-	                    "div",
-	                    { className: "board-score" },
+	                    'div',
+	                    { className: 'board-score' },
 	                    this.props.playerData.totalScore
 	                )
 	            );
@@ -24610,7 +24650,7 @@
   \********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -24636,34 +24676,53 @@
 	    function PlayerNameModal(props) {
 	        _classCallCheck(this, PlayerNameModal);
 	
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(PlayerNameModal).call(this, props));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PlayerNameModal).call(this, props));
+	
+	        _this.submitNameChange = _this.submitNameChange.bind(_this);
+	        return _this;
 	    }
 	
 	    _createClass(PlayerNameModal, [{
-	        key: "render",
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {}
+	    }, {
+	        key: 'submitNameChange',
+	        value: function submitNameChange() {
+	            var playerName = document.getElementById('playerName').value;
+	            var playerKey = document.getElementById('playerKey').value;
+	            if (playerName != null && playerName != '') {
+	                this.props.changePlayerName(playerKey, playerName);
+	                this.props.uiTools.closeModals();
+	            } else {
+	                alert('Please enter a name for this player.');
+	            }
+	        }
+	    }, {
+	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                "div",
-	                { id: "playerName", className: "modal" },
+	                'div',
+	                { id: 'playerNameModal', className: 'modal' },
 	                _react2.default.createElement(
-	                    "h1",
+	                    'h1',
 	                    null,
-	                    "Change Player Name"
+	                    'Change Player Name'
 	                ),
-	                _react2.default.createElement("input", { id: "playerName", type: "text" }),
+	                _react2.default.createElement('input', { id: 'playerName', type: 'text' }),
+	                _react2.default.createElement('input', { id: 'playerKey', type: 'hidden' }),
 	                _react2.default.createElement(
-	                    "div",
-	                    { className: "modal-actions" },
+	                    'div',
+	                    { className: 'modal-actions' },
 	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "btn" },
-	                        "Cancel"
+	                        'a',
+	                        { className: 'btn', onClick: this.props.uiTools.closeModals },
+	                        'Cancel'
 	                    ),
-	                    " ",
+	                    ' ',
 	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "btn primary" },
-	                        "Save"
+	                        'a',
+	                        { className: 'btn primary', onClick: this.submitNameChange },
+	                        'Save'
 	                    )
 	                )
 	            );

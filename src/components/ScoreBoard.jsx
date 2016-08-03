@@ -9,8 +9,8 @@ export default class ScoreBoard extends Component {
     }
 
     render() {
-        console.log(this.props);
         var scoreBoard = this.props.scoreBoard;
+        var props = this.props;
         return (
             <div id="scoreBoard">
                 <section className = "board-header">
@@ -30,7 +30,7 @@ export default class ScoreBoard extends Component {
                 {
                     Object.keys(scoreBoard).map(function (key) {
                         return (
-                            <PlayerRow playerData={scoreBoard[key]} />
+                            <PlayerRow playerData={scoreBoard[key]} player={key} {...props} />
                         )
                     })
                 }

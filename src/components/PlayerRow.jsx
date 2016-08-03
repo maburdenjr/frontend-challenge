@@ -6,10 +6,18 @@ export default class PlayerRow extends Component {
         super(props)
     }
 
+    showNameChangeModal(player, name) {
+        this.props.uiTools.fadeIn('modalOverlay');
+        this.props.uiTools.fadeIn('playerNameModal');
+        document.getElementById('playerName').value = name;
+        document.getElementById('playerKey').value = player;
+    }
+
     render() {
+        let playerName = this.props.playerData.name;
         return (
             <section className = "player-row">
-                <div className = "board-player">{this.props.playerData.name}</div>
+                <div className = "board-player" onClick={this.showNameChangeModal.bind(this, this.props.player, playerName)}>{playerName}</div>
                 {
                     this.props.playerData.frames.map(function (result, key) {
                         if (key < 9 ) {
