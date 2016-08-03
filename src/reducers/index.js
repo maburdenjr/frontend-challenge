@@ -26,6 +26,7 @@ function scoreTracker(state = scoreBoardState, action) {
         case scoreManager.RECORD_SCORE:
             let updateScore = Object.assign({}, state);
             updateScore[action.player].frames[action.frame]['roll'+action.roll] = action.score;
+            return updateScore;
         default:
             return state;
     }

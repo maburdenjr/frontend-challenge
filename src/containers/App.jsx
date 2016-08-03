@@ -4,6 +4,7 @@ import * as scoreManager from '../actions/scoring'
 import Header from '../components/Header.jsx';
 import ScoreBoard from '../components/ScoreBoard.jsx';
 import PlayerNameModal from '../components/PlayerNameModal.jsx';
+import EnterFrameScore from '../components/EnterFrameScoreModal.jsx';
 
 
 class App extends Component {
@@ -42,7 +43,10 @@ class App extends Component {
             closeModals: function() {
                 document.getElementById('modalOverlay').style.display = "none";
                 document.getElementById('playerNameModal').style.display = "none";
-
+                document.getElementById('frameScoreModal').style.display = "none";
+                document.getElementById('modalOverlay').style.opacity = 0;
+                document.getElementById('playerNameModal').style.opacity = 0;
+                document.getElementById('frameScoreModal').style.opacity = 0;
             }
         }
     };
@@ -58,6 +62,7 @@ class App extends Component {
                 </div>
                 <div id="modalOverlay" onClick={this.userInterfaceTools().closeModals}></div>
                 <PlayerNameModal {...this.props} uiTools={this.userInterfaceTools()} />
+                <EnterFrameScore {...this.props} uiTools={this.userInterfaceTools()} />
             </div>
         )
     }

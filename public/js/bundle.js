@@ -24180,6 +24180,7 @@
 	        case scoreManager.RECORD_SCORE:
 	            var updateScore = Object.assign({}, state);
 	            updateScore[action.player].frames[action.frame]['roll' + action.roll] = action.score;
+	            return updateScore;
 	        default:
 	            return state;
 	    }
@@ -24262,6 +24263,10 @@
 	
 	var _PlayerNameModal2 = _interopRequireDefault(_PlayerNameModal);
 	
+	var _EnterFrameScoreModal = __webpack_require__(/*! ../components/EnterFrameScoreModal.jsx */ 215);
+	
+	var _EnterFrameScoreModal2 = _interopRequireDefault(_EnterFrameScoreModal);
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -24318,6 +24323,10 @@
 	                closeModals: function closeModals() {
 	                    document.getElementById('modalOverlay').style.display = "none";
 	                    document.getElementById('playerNameModal').style.display = "none";
+	                    document.getElementById('frameScoreModal').style.display = "none";
+	                    document.getElementById('modalOverlay').style.opacity = 0;
+	                    document.getElementById('playerNameModal').style.opacity = 0;
+	                    document.getElementById('frameScoreModal').style.opacity = 0;
 	                }
 	            };
 	        }
@@ -24335,7 +24344,8 @@
 	                    _react2.default.createElement(_ScoreBoard2.default, _extends({}, this.props, { uiTools: this.userInterfaceTools() }))
 	                ),
 	                _react2.default.createElement('div', { id: 'modalOverlay', onClick: this.userInterfaceTools().closeModals }),
-	                _react2.default.createElement(_PlayerNameModal2.default, _extends({}, this.props, { uiTools: this.userInterfaceTools() }))
+	                _react2.default.createElement(_PlayerNameModal2.default, _extends({}, this.props, { uiTools: this.userInterfaceTools() })),
+	                _react2.default.createElement(_EnterFrameScoreModal2.default, _extends({}, this.props, { uiTools: this.userInterfaceTools() }))
 	            );
 	        }
 	    }]);
@@ -24580,10 +24590,24 @@
 	    function PlayerRow(props) {
 	        _classCallCheck(this, PlayerRow);
 	
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(PlayerRow).call(this, props));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PlayerRow).call(this, props));
+	
+	        _this.showNameChangeModal = _this.showNameChangeModal.bind(_this);
+	        return _this;
 	    }
 	
 	    _createClass(PlayerRow, [{
+	        key: 'showScoreModal',
+	        value: function showScoreModal(player, frame, roll, score) {
+	            console.log(arguments);
+	            this.props.uiTools.fadeIn('modalOverlay');
+	            this.props.uiTools.fadeIn('frameScoreModal');
+	            document.getElementById('playerKey').value = player;
+	            document.getElementById('playerFrame').value = frame;
+	            document.getElementById('playerRoll').value = roll;
+	            document.getElementById('playerScore').value = score;
+	        }
+	    }, {
 	        key: 'showNameChangeModal',
 	        value: function showNameChangeModal(player, name) {
 	            this.props.uiTools.fadeIn('modalOverlay');
@@ -24595,6 +24619,7 @@
 	        key: 'render',
 	        value: function render() {
 	            var playerName = this.props.playerData.name;
+	            var row = this;
 	            return _react2.default.createElement(
 	                'section',
 	                { className: 'player-row' },
@@ -24604,6 +24629,9 @@
 	                    playerName
 	                ),
 	                this.props.playerData.frames.map(function (result, key) {
+	                    var roll1 = row.props.playerData.frames[key].roll1;
+	                    var roll2 = row.props.playerData.frames[key].roll2;
+	                    var roll3 = row.props.playerData.frames[key].roll3;
 	                    if (key < 9) {
 	                        return _react2.default.createElement(
 	                            'div',
@@ -24611,8 +24639,16 @@
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'frame-container' },
-	                                _react2.default.createElement('div', { className: 'frame-roll' }),
-	                                _react2.default.createElement('div', { className: 'frame-roll' })
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'frame-roll', onClick: row.showScoreModal.bind(row, row.props.player, key, 2, roll2) },
+	                                    roll2
+	                                ),
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'frame-roll', onClick: row.showScoreModal.bind(row, row.props.player, key, 1, roll1) },
+	                                    roll1
+	                                )
 	                            )
 	                        );
 	                    } else {
@@ -24622,9 +24658,21 @@
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'frame-container' },
-	                                _react2.default.createElement('div', { className: 'frame-roll' }),
-	                                _react2.default.createElement('div', { className: 'frame-roll' }),
-	                                _react2.default.createElement('div', { className: 'frame-roll' })
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'frame-roll', onClick: row.showScoreModal.bind(row, row.props.player, key, 3, roll3) },
+	                                    roll3
+	                                ),
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'frame-roll', onClick: row.showScoreModal.bind(row, row.props.player, key, 1, roll1) },
+	                                    roll1
+	                                ),
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'frame-roll', onClick: row.showScoreModal.bind(row, row.props.player, key, 2, roll2) },
+	                                    roll2
+	                                )
 	                            )
 	                        );
 	                    }
@@ -24702,7 +24750,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                'div',
-	                { id: 'playerNameModal', className: 'modal' },
+	                { id: 'playerNameModal', className: 'modal hideme' },
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,
@@ -24733,6 +24781,98 @@
 	}(_react.Component);
 	
 	exports.default = PlayerNameModal;
+
+/***/ },
+/* 214 */,
+/* 215 */
+/*!*************************************************!*\
+  !*** ./src/components/EnterFrameScoreModal.jsx ***!
+  \*************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var EnterFrameScore = function (_Component) {
+	    _inherits(EnterFrameScore, _Component);
+	
+	    function EnterFrameScore(props) {
+	        _classCallCheck(this, EnterFrameScore);
+	
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(EnterFrameScore).call(this, props));
+	
+	        _this.saveScore = _this.saveScore.bind(_this);
+	
+	        return _this;
+	    }
+	
+	    _createClass(EnterFrameScore, [{
+	        key: 'saveScore',
+	        value: function saveScore() {
+	            var playerScore = parseInt(document.getElementById('playerScore').value);
+	            var playerKey = document.getElementById('playerKey').value;
+	            var playerFrame = parseInt(document.getElementById('playerFrame').value);
+	            var playerRoll = parseInt(document.getElementById('playerRoll').value);
+	            this.props.recordScore(playerKey, playerFrame, playerRoll, playerScore);
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {}
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { id: 'frameScoreModal', className: 'modal hideme' },
+	                _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    'Add/Modify Score'
+	                ),
+	                _react2.default.createElement('input', { id: 'playerScore', type: 'text' }),
+	                _react2.default.createElement('input', { id: 'playerKey', type: 'hidden' }),
+	                _react2.default.createElement('input', { id: 'playerFrame', type: 'hidden' }),
+	                _react2.default.createElement('input', { id: 'playerRoll', type: 'hidden' }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'modal-actions' },
+	                    _react2.default.createElement(
+	                        'a',
+	                        { className: 'btn', onClick: this.props.uiTools.closeModals },
+	                        'Cancel'
+	                    ),
+	                    ' ',
+	                    _react2.default.createElement(
+	                        'a',
+	                        { className: 'btn primary', onClick: this.saveScore },
+	                        'Save'
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return EnterFrameScore;
+	}(_react.Component);
+	
+	exports.default = EnterFrameScore;
 
 /***/ }
 /******/ ]);

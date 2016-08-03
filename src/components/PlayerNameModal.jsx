@@ -23,7 +23,7 @@ export default class PlayerNameModal extends Component {
 
     render() {
         return (
-            <div id="playerNameModal" className="modal">
+            <div id="playerNameModal" className="modal hideme">
                 <h1>Change Player Name</h1>
                  <input id="playerName" type="text" />
                  <input id="playerKey" type="hidden" />
