@@ -6,14 +6,14 @@ export default class PlayerRow extends Component {
         super(props);
         this.showNameChangeModal = this.showNameChangeModal.bind(this);
     }
-    showScoreModal(player, frame, roll, score) {
-        console.log(arguments);
+    showScoreModal(player, frame, roll, score, otherFrame) {
         this.props.uiTools.fadeIn('modalOverlay');
         this.props.uiTools.fadeIn('frameScoreModal');
         document.getElementById('playerKey').value = player;
         document.getElementById('playerFrame').value = frame;
         document.getElementById('playerRoll').value = roll;
         document.getElementById('playerScore').value = score;
+        document.getElementById('playerExtFrame').value = otherFrame;
     }
 
     showNameChangeModal(player, name) {
@@ -34,15 +34,20 @@ export default class PlayerRow extends Component {
                         let roll1 = row.props.playerData.frames[key].roll1;
                         let roll2 = row.props.playerData.frames[key].roll2;
                         let roll3 = row.props.playerData.frames[key].roll3;
+
+                        let roll1Display = (roll1 == 10 ? "X" : roll1);
+                        let roll2Display = ((roll1 < 10 && (roll1 + roll2 == 10)) ? "/" : roll2);
+                        let roll3Display = (roll3 == 10 ? "X" : roll3);
+
                         if (key < 9 ) {
                             return (
-                            <div className="board-frame" id={key}>
+                            <div className="board-frame" key={key}>
                                 <div className="frame-container">
-                                    <div className="frame-roll" onClick={row.showScoreModal.bind(row, row.props.player, key, 2, roll2)}>
-                                        {roll2}
+                                    <div className="frame-roll" onClick={row.showScoreModal.bind(row, row.props.player, key, 2, roll2, roll1)}>
+                                        {roll2Display}
                                     </div>
-                                    <div className="frame-roll" onClick={row.showScoreModal.bind(row, row.props.player, key, 1, roll1)}>
-                                        {roll1}
+                                    <div className="frame-roll" onClick={row.showScoreModal.bind(row, row.props.player, key, 1, roll1, roll2)}>
+                                        {roll1Display}
                                     </div>
 
                                 </div>
@@ -52,14 +57,14 @@ export default class PlayerRow extends Component {
                             return (
                                 <div className="board-frame final-frame">
                                     <div className="frame-container">
-                                        <div className="frame-roll" onClick={row.showScoreModal.bind(row, row.props.player, key, 3, roll3)}>
-                                            {roll3}
+                                        <div className="frame-roll" onClick={row.showScoreModal.bind(row, row.props.player, key, 3, roll3Display)}>
+                                            {roll3Display}
                                         </div>
-                                        <div className="frame-roll" onClick={row.showScoreModal.bind(row, row.props.player, key, 1, roll1)}>
-                                            {roll1}
+                                        <div className="frame-roll" onClick={row.showScoreModal.bind(row, row.props.player, key, 2, roll2, roll3)}>
+                                            {roll2Display}
                                         </div>
-                                        <div className="frame-roll" onClick={row.showScoreModal.bind(row, row.props.player, key, 2, roll2)}>
-                                            {roll2}
+                                        <div className="frame-roll" onClick={row.showScoreModal.bind(row, row.props.player, key, 1, roll1, roll2)}>
+                                            {roll1Display}
                                         </div>
                                     </div>
                                 </div>

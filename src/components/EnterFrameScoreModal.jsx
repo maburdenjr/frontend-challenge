@@ -12,7 +12,29 @@ export default class EnterFrameScore extends Component {
         let playerKey = document.getElementById('playerKey').value;
         let playerFrame = parseInt(document.getElementById('playerFrame').value);
         let playerRoll = parseInt(document.getElementById('playerRoll').value);
+        let playerExtFrame = parseInt(document.getElementById('playerExtFrame').value);
+
+        if (playerScore > 10 || isNaN(playerScore)) {
+            alert("You may only enter the numbers 0-10 for each frame.")
+            return false;
+        }
+
+        //Total Pins cannot be more than 10
+        if (playerRoll < 3) {
+            if (playerScore + playerExtFrame > 10) {
+                let remainingPins = 10-playerExtFrame;
+                alert('You have entered an incorrect number of pins for this frame.  You may only enter up to '+remainingPins+' in this frame.');
+                return false;
+            }
+        } else {
+            if (playerScore > 10) {
+                alert('You have entered an incorrect number of pins for this frame.  You may only enter up to 10 in this frame.');
+                return false;
+            }
+        }
+
         this.props.recordScore(playerKey, playerFrame, playerRoll, playerScore);
+        this.props.uiTools.closeModals();
 
     }
 
@@ -27,6 +49,7 @@ export default class EnterFrameScore extends Component {
                 <input id="playerKey" type="hidden" />
                 <input id="playerFrame" type="hidden" />
                 <input id="playerRoll" type="hidden" />
+                <input id="playerExtFrame" type="hidden" />
                 <div className="modal-actions">
                     <a className="btn" onClick={this.props.uiTools.closeModals}>Cancel</a> <a className="btn primary" onClick={this.saveScore}>Save</a>
                 </div>

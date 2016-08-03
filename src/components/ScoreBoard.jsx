@@ -30,7 +30,7 @@ export default class ScoreBoard extends Component {
                 {
                     Object.keys(scoreBoard).map(function (key) {
                         return (
-                            <PlayerRow playerData={scoreBoard[key]} player={key} {...props} />
+                            <PlayerRow playerData={scoreBoard[key]} player={key} {...props} key={key} />
                         )
                     })
                 }

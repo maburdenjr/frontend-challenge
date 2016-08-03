@@ -24546,7 +24546,7 @@
 	                    )
 	                ),
 	                Object.keys(scoreBoard).map(function (key) {
-	                    return _react2.default.createElement(_PlayerRow2.default, _extends({ playerData: scoreBoard[key], player: key }, props));
+	                    return _react2.default.createElement(_PlayerRow2.default, _extends({ playerData: scoreBoard[key], player: key }, props, { key: key }));
 	                })
 	            );
 	        }
@@ -24598,14 +24598,14 @@
 	
 	    _createClass(PlayerRow, [{
 	        key: 'showScoreModal',
-	        value: function showScoreModal(player, frame, roll, score) {
-	            console.log(arguments);
+	        value: function showScoreModal(player, frame, roll, score, otherFrame) {
 	            this.props.uiTools.fadeIn('modalOverlay');
 	            this.props.uiTools.fadeIn('frameScoreModal');
 	            document.getElementById('playerKey').value = player;
 	            document.getElementById('playerFrame').value = frame;
 	            document.getElementById('playerRoll').value = roll;
 	            document.getElementById('playerScore').value = score;
+	            document.getElementById('playerExtFrame').value = otherFrame;
 	        }
 	    }, {
 	        key: 'showNameChangeModal',
@@ -24632,22 +24632,27 @@
 	                    var roll1 = row.props.playerData.frames[key].roll1;
 	                    var roll2 = row.props.playerData.frames[key].roll2;
 	                    var roll3 = row.props.playerData.frames[key].roll3;
+	
+	                    var roll1Display = roll1 == 10 ? "X" : roll1;
+	                    var roll2Display = roll1 < 10 && roll1 + roll2 == 10 ? "/" : roll2;
+	                    var roll3Display = roll3 == 10 ? "X" : roll3;
+	
 	                    if (key < 9) {
 	                        return _react2.default.createElement(
 	                            'div',
-	                            { className: 'board-frame', id: key },
+	                            { className: 'board-frame', key: key },
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'frame-container' },
 	                                _react2.default.createElement(
 	                                    'div',
-	                                    { className: 'frame-roll', onClick: row.showScoreModal.bind(row, row.props.player, key, 2, roll2) },
-	                                    roll2
+	                                    { className: 'frame-roll', onClick: row.showScoreModal.bind(row, row.props.player, key, 2, roll2, roll1) },
+	                                    roll2Display
 	                                ),
 	                                _react2.default.createElement(
 	                                    'div',
-	                                    { className: 'frame-roll', onClick: row.showScoreModal.bind(row, row.props.player, key, 1, roll1) },
-	                                    roll1
+	                                    { className: 'frame-roll', onClick: row.showScoreModal.bind(row, row.props.player, key, 1, roll1, roll2) },
+	                                    roll1Display
 	                                )
 	                            )
 	                        );
@@ -24660,18 +24665,18 @@
 	                                { className: 'frame-container' },
 	                                _react2.default.createElement(
 	                                    'div',
-	                                    { className: 'frame-roll', onClick: row.showScoreModal.bind(row, row.props.player, key, 3, roll3) },
-	                                    roll3
+	                                    { className: 'frame-roll', onClick: row.showScoreModal.bind(row, row.props.player, key, 3, roll3Display) },
+	                                    roll3Display
 	                                ),
 	                                _react2.default.createElement(
 	                                    'div',
-	                                    { className: 'frame-roll', onClick: row.showScoreModal.bind(row, row.props.player, key, 1, roll1) },
-	                                    roll1
+	                                    { className: 'frame-roll', onClick: row.showScoreModal.bind(row, row.props.player, key, 2, roll2, roll3) },
+	                                    roll2Display
 	                                ),
 	                                _react2.default.createElement(
 	                                    'div',
-	                                    { className: 'frame-roll', onClick: row.showScoreModal.bind(row, row.props.player, key, 2, roll2) },
-	                                    roll2
+	                                    { className: 'frame-roll', onClick: row.showScoreModal.bind(row, row.props.player, key, 1, roll1, roll2) },
+	                                    roll1Display
 	                                )
 	                            )
 	                        );
@@ -24830,7 +24835,29 @@
 	            var playerKey = document.getElementById('playerKey').value;
 	            var playerFrame = parseInt(document.getElementById('playerFrame').value);
 	            var playerRoll = parseInt(document.getElementById('playerRoll').value);
+	            var playerExtFrame = parseInt(document.getElementById('playerExtFrame').value);
+	
+	            if (playerScore > 10 || isNaN(playerScore)) {
+	                alert("You may only enter the numbers 0-10 for each frame.");
+	                return false;
+	            }
+	
+	            //Total Pins cannot be more than 10
+	            if (playerRoll < 3) {
+	                if (playerScore + playerExtFrame > 10) {
+	                    var remainingPins = 10 - playerExtFrame;
+	                    alert('You have entered an incorrect number of pins for this frame.  You may only enter up to ' + remainingPins + ' in this frame.');
+	                    return false;
+	                }
+	            } else {
+	                if (playerScore > 10) {
+	                    alert('You have entered an incorrect number of pins for this frame.  You may only enter up to 10 in this frame.');
+	                    return false;
+	                }
+	            }
+	
 	            this.props.recordScore(playerKey, playerFrame, playerRoll, playerScore);
+	            this.props.uiTools.closeModals();
 	        }
 	    }, {
 	        key: 'componentDidMount',
@@ -24850,6 +24877,7 @@
 	                _react2.default.createElement('input', { id: 'playerKey', type: 'hidden' }),
 	                _react2.default.createElement('input', { id: 'playerFrame', type: 'hidden' }),
 	                _react2.default.createElement('input', { id: 'playerRoll', type: 'hidden' }),
+	                _react2.default.createElement('input', { id: 'playerExtFrame', type: 'hidden' }),
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'modal-actions' },
