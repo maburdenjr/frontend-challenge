@@ -18,17 +18,10 @@ export default class EnterFrameScore extends Component {
             alert("You may only enter the numbers 0-10 for each frame.")
             return false;
         }
-
-        //Total Pins cannot be more than 10
-        if (playerRoll < 3) {
+        if (playerFrame < 9) {
             if (playerScore + playerExtFrame > 10) {
-                let remainingPins = 10-playerExtFrame;
-                alert('You have entered an incorrect number of pins for this frame.  You may only enter up to '+remainingPins+' in this frame.');
-                return false;
-            }
-        } else {
-            if (playerScore > 10) {
-                alert('You have entered an incorrect number of pins for this frame.  You may only enter up to 10 in this frame.');
+                let remainingPins = 10 - playerExtFrame;
+                alert('You have entered an incorrect number of pins for this frame.  You may only enter up to ' + remainingPins + ' in this frame.');
                 return false;
             }
         }

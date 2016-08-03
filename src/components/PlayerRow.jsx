@@ -44,10 +44,10 @@ export default class PlayerRow extends Component {
                             <div className="board-frame" key={key}>
                                 <div className="frame-container">
                                     <div className="frame-roll" onClick={row.showScoreModal.bind(row, row.props.player, key, 2, roll2, roll1)}>
-                                        {roll2Display}
+                                        {(roll2 == 0 ? '-' : roll2Display)}
                                     </div>
                                     <div className="frame-roll" onClick={row.showScoreModal.bind(row, row.props.player, key, 1, roll1, roll2)}>
-                                        {roll1Display}
+                                        {(roll1 == 0 ? '-' : roll1Display)}
                                     </div>
 
                                 </div>
@@ -58,13 +58,13 @@ export default class PlayerRow extends Component {
                                 <div className="board-frame final-frame">
                                     <div className="frame-container">
                                         <div className="frame-roll" onClick={row.showScoreModal.bind(row, row.props.player, key, 3, roll3Display)}>
-                                            {roll3Display}
+                                            {(roll3 == 0 ? '-' : roll3Display)}
                                         </div>
                                         <div className="frame-roll" onClick={row.showScoreModal.bind(row, row.props.player, key, 2, roll2, roll3)}>
-                                            {roll2Display}
+                                            {(roll2 == 0 ? '-' : roll2Display)}
                                         </div>
                                         <div className="frame-roll" onClick={row.showScoreModal.bind(row, row.props.player, key, 1, roll1, roll2)}>
-                                            {roll1Display}
+                                            {(roll1 == 0 ? '-' : roll1Display)}
                                         </div>
                                     </div>
                                 </div>

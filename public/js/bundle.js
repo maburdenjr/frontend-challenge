@@ -24647,12 +24647,12 @@
 	                                _react2.default.createElement(
 	                                    'div',
 	                                    { className: 'frame-roll', onClick: row.showScoreModal.bind(row, row.props.player, key, 2, roll2, roll1) },
-	                                    roll2Display
+	                                    roll2 == 0 ? '-' : roll2Display
 	                                ),
 	                                _react2.default.createElement(
 	                                    'div',
 	                                    { className: 'frame-roll', onClick: row.showScoreModal.bind(row, row.props.player, key, 1, roll1, roll2) },
-	                                    roll1Display
+	                                    roll1 == 0 ? '-' : roll1Display
 	                                )
 	                            )
 	                        );
@@ -24666,17 +24666,17 @@
 	                                _react2.default.createElement(
 	                                    'div',
 	                                    { className: 'frame-roll', onClick: row.showScoreModal.bind(row, row.props.player, key, 3, roll3Display) },
-	                                    roll3Display
+	                                    roll3 == 0 ? '-' : roll3Display
 	                                ),
 	                                _react2.default.createElement(
 	                                    'div',
 	                                    { className: 'frame-roll', onClick: row.showScoreModal.bind(row, row.props.player, key, 2, roll2, roll3) },
-	                                    roll2Display
+	                                    roll2 == 0 ? '-' : roll2Display
 	                                ),
 	                                _react2.default.createElement(
 	                                    'div',
 	                                    { className: 'frame-roll', onClick: row.showScoreModal.bind(row, row.props.player, key, 1, roll1, roll2) },
-	                                    roll1Display
+	                                    roll1 == 0 ? '-' : roll1Display
 	                                )
 	                            )
 	                        );
@@ -24841,17 +24841,10 @@
 	                alert("You may only enter the numbers 0-10 for each frame.");
 	                return false;
 	            }
-	
-	            //Total Pins cannot be more than 10
-	            if (playerRoll < 3) {
+	            if (playerFrame < 9) {
 	                if (playerScore + playerExtFrame > 10) {
 	                    var remainingPins = 10 - playerExtFrame;
 	                    alert('You have entered an incorrect number of pins for this frame.  You may only enter up to ' + remainingPins + ' in this frame.');
-	                    return false;
-	                }
-	            } else {
-	                if (playerScore > 10) {
-	                    alert('You have entered an incorrect number of pins for this frame.  You may only enter up to 10 in this frame.');
 	                    return false;
 	                }
 	            }
